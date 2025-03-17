@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="NetworkAnalysis.NetworkAnalyticsDockPaneView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"   
+             xmlns:ui="clr-namespace:NetworkAnalysis"
+             xmlns:extensions="clr-namespace:ArcGIS.Desktop.Extensions;assembly=ArcGIS.Desktop.Extensions"
+             xmlns:controls="clr-namespace:ArcGIS.Desktop.Framework.Controls;assembly=ArcGIS.Desktop.Framework"                       
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{Binding Path=ui.NetworkAnalyticsDockPaneViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <extensions:DesignOnlyResourceDictionary Source="pack://application:,,,/ArcGIS.Desktop.Framework;component\Themes\Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" MaxHeight="600">
+
+        <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Grid}">
+                <Setter Property="Margin" Value="5,20,5,5"></Setter>
+            </Style>
+            <Style TargetType="{x:Type GroupBox}">
+                <Setter Property="Margin" Value="5,20,5,5"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Header="Quick Info">
+            <StackPanel>
+                <Label> Subnetworks </Label>
+                <ComboBox Name="SubnetworkNameCombo" ItemsSource="{Binding SubnetworkNames}" SelectedItem="{Binding SelectedSubnetworkName}"></ComboBox>
+                <Button  Content="Show"  Command="{Binding ShowQuickInfoCommand}" CommandParameter="{Binding ElementName=SubnetworkNameCombo,Path=SelectedItem}"></Button>
+                <!-- <TextBlock Text="{Binding ElementName=SubnetworkNameCombo,Path=SelectedItem}"></TextBlock> -->
+                <TextBlock Text="{Binding SubnetworkName}"  Style="{DynamicResource Esri_BackStageHeader2}"  Background="Aquamarine"></TextBlock> 
+                <TextBlock Text="{Binding QuickInfoText}" Style="{DynamicResource Esri_BackStageHeader3}" TextWrapping="Wrap" Background="Aquamarine"></TextBlock>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Header="Export">
+            <StackPanel VerticalAlignment="Top" >
+                <Label>JSON Path</Label>
+                <TextBox Text="{Binding JsonExportPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                <Button Content="Export" Command="{Binding ExportJsonCommand}"></Button>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Header="Analysis">
+            <StackPanel>
+                <TextBox Text="{Binding JsonLoadPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                <Button Content="Load" Command="{Binding LoadJsonCommand}"></Button>
+                    <TextBlock Text="{Binding AnalysisText}" Style="{DynamicResource Esri_TextBlockBackStageSubHeader}" TextWrapping="Wrap" Background="LemonChiffon"></TextBlock>
+            </StackPanel>
+        </GroupBox>
+            </Grid>
+    </ScrollViewer>
+</UserControl>
