@@ -1,5 +1,5 @@
 ## Esri Dev & Tech Summit Demo 2025
-### ArcGIS Pro SDK for.NET: Exporting Utility Networks for Network Analysis in the Pro SDK
+### ArcGIS Pro SDK for .NET: Exporting Utility Networks for Network Analysis in the Pro SDK
 
 This sample demonstrates the APIs that can be used to export trace data and subnetwork information into JSON files. 
 These files may include network attributes, feature attributes, as well as connectivity and containment information.
